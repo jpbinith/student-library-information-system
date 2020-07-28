@@ -1,24 +1,37 @@
 package com.assignment.slisAPI.controller;
 
-import com.assignment.slisAPI.model.Student;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.List;
 
+import com.assignment.slisAPI.model.Student;
+import com.assignment.slisAPI.service.StudentService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class StudentController {
 
-    private static final String TEMPLATE = "Hello, %s!";
-	private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    private StudentService service;
     
     @GetMapping("/student")
-    public Student getAllStudent(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new Student(counter.incrementAndGet(), String.format(TEMPLATE, name));
+    public List<Student> getAllStudent() {
+        return service.getAllStudent();
+    }
+
+    @GetMapping("/student/{id}")
+    public Student getStudentById(@PathVariable int id) {
+        return service.getStudentById(id);
+    }
+
+    @GetMapping("/student/{name}")
+    public Student getStudentByName(@PathVariable String name) {
+        return service.getStudentByName(name);
     }
 
     @PostMapping("/student")
-    public String createStudent(){
-        return "post is working";
+    public Student addStudent(@RequestBody Student student){
+        return service.saveStudent(student);
     }
 
     @PutMapping("/student/{id}")
@@ -29,6 +42,16 @@ public class StudentController {
     @DeleteMapping("/student/{id}")
     public String deleteStudent(@PathVariable(value = "id")final Integer id){
         return "delete is working " + id.toString();
+    }
+
+    @PutMapping("/student")
+    public Student updateStudent(@RequestBody Student student){
+        return service.updateStudent(student);
+    }
+
+    @DeleteMapping("/student/{id}")
+    public String deleteStudent(@PathVariable int id) {
+        return service.deleteStudentById(id);
     }
 
 }
