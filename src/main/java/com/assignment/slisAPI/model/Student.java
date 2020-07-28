@@ -5,13 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "students")
 public class Student {
@@ -36,8 +29,17 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public Student() {
+
+    }
 
     public Student(String name) {
+        this.name = name;
+    }
+
+    public Student(int id, String name) {
+        this.id = id;
         this.name = name;
     }
     

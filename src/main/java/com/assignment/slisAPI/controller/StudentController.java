@@ -19,12 +19,12 @@ public class StudentController {
         return service.getAllStudent();
     }
 
-    @GetMapping("/student/{id}")
+    @GetMapping("/student/id/{id}")
     public Student getStudentById(@PathVariable int id) {
         return service.getStudentById(id);
     }
 
-    @GetMapping("/student/{name}")
+    @GetMapping("/student/name/{name}")
     public Student getStudentByName(@PathVariable String name) {
         return service.getStudentByName(name);
     }
@@ -32,16 +32,6 @@ public class StudentController {
     @PostMapping("/student")
     public Student addStudent(@RequestBody Student student){
         return service.saveStudent(student);
-    }
-
-    @PutMapping("/student/{id}")
-    public String updateStudent(@PathVariable(value = "id")final Integer id){
-        return "put is working " + id.toString();
-    }
-
-    @DeleteMapping("/student/{id}")
-    public String deleteStudent(@PathVariable(value = "id")final Integer id){
-        return "delete is working " + id.toString();
     }
 
     @PutMapping("/student")
