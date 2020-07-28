@@ -2,6 +2,7 @@ package com.assignment.slisAPI.controller;
 
 import java.util.List;
 
+import com.assignment.slisAPI.exception.ResourceNotFoundException;
 import com.assignment.slisAPI.model.Student;
 import com.assignment.slisAPI.service.StudentService;
 
@@ -20,27 +21,27 @@ public class StudentController {
     }
 
     @GetMapping("/student/id/{id}")
-    public Student getStudentById(@PathVariable int id) {
+    public Student getStudentById(@PathVariable int id) throws ResourceNotFoundException {
         return service.getStudentById(id);
     }
 
     @GetMapping("/student/name/{name}")
-    public Student getStudentByName(@PathVariable String name) {
+    public Student getStudentByName(@PathVariable String name) throws ResourceNotFoundException {
         return service.getStudentByName(name);
     }
 
     @PostMapping("/student")
-    public Student addStudent(@RequestBody Student student){
+    public Student addStudent(@RequestBody Student student) {
         return service.saveStudent(student);
     }
 
     @PutMapping("/student")
-    public Student updateStudent(@RequestBody Student student){
+    public Student updateStudent(@RequestBody Student student) throws ResourceNotFoundException {
         return service.updateStudent(student);
     }
 
     @DeleteMapping("/student/{id}")
-    public String deleteStudent(@PathVariable int id) {
+    public String deleteStudent(@PathVariable int id) throws ResourceNotFoundException {
         return service.deleteStudentById(id);
     }
 
